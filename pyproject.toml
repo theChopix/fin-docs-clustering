@@ -6,4 +6,5 @@ dependencies = [
     "pip-tools",
     "pre-commit",
     "pytest",
+    "kagglehub"
 ]

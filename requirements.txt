@@ -6,8 +6,12 @@
 #
 build==1.4.0
     # via pip-tools
+certifi==2026.1.4
+    # via requests
 cfgv==3.5.0
     # via pre-commit
+charset-normalizer==3.4.4
+    # via requests
 click==8.3.1
     # via pip-tools
 distlib==0.4.0
@@ -16,13 +20,20 @@ filelock==3.20.3
     # via virtualenv
 identify==2.6.16
     # via pre-commit
+idna==3.11
+    # via requests
 iniconfig==2.3.0
     # via pytest
+kagglehub==0.4.1
+    # via financial-documents-clustering (pyproject.toml)
+kagglesdk==0.1.15
+    # via kagglehub
 nodeenv==1.10.0
     # via pre-commit
 packaging==26.0
     # via
     #   build
+    #   kagglehub
     #   pytest
     #   wheel
 pip-tools==7.5.2
@@ -33,6 +44,8 @@ pluggy==1.6.0
     # via pytest
 pre-commit==4.5.1
     # via financial-documents-clustering (pyproject.toml)
+protobuf==6.33.4
+    # via kagglesdk
 pygments==2.19.2
     # via pytest
 pyproject-hooks==1.2.0
@@ -42,7 +55,17 @@ pyproject-hooks==1.2.0
 pytest==9.0.2
     # via financial-documents-clustering (pyproject.toml)
 pyyaml==6.0.3
-    # via pre-commit
+    # via
+    #   kagglehub
+    #   pre-commit
+requests==2.32.5
+    # via
+    #   kagglehub
+    #   kagglesdk
+tqdm==4.67.1
+    # via kagglehub
+urllib3==2.6.3
+    # via requests
 virtualenv==20.36.1
     # via pre-commit
 wheel==0.46.3
