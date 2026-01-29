@@ -1,0 +1,9 @@
+[project]
+name = "financial-documents-clustering"
+description = "financial documents clustering"
+version = "1.0"
+dependencies = [
+    "pip-tools",
+    "pre-commit",
+    "pytest",
+]
