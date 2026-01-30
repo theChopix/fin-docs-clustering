@@ -1,0 +1,17 @@
+You are analyzing a financial document image.
+
+Extract information and output ONLY valid JSON
+matching this schema:
+
+{
+  "doc_type": "...",
+  "issuer": "...",
+  "account_present": true/false,
+  "amounts": [numbers],
+  "dates": ["YYYY-MM-DD"],
+  "layout": "table/form/text/mixed",
+  "language": "en/hi/other",
+  "summary": "one sentence description"
+}
+
+If a field is unknown, use None.

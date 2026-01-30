@@ -6,5 +6,9 @@ dependencies = [
     "pip-tools",
     "pre-commit",
     "pytest",
-    "kagglehub"
+    "kagglehub",
+    "langchain",
+    "langchain-core",
+    "langchain-openai",
+    "python-dotenv"
 ]
