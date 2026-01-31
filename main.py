@@ -2,7 +2,7 @@ import click
 import json
 import os
 
-from download_dataset import download_dataset
+from clustering_pipeline.download_dataset import download_dataset
 from clustering_pipeline.feature_extraction import feature_extraction
 
 @click.command()
