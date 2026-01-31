@@ -10,5 +10,6 @@ dependencies = [
     "langchain",
     "langchain-core",
     "langchain-openai",
-    "python-dotenv"
+    "python-dotenv",
+    "click"
 ]

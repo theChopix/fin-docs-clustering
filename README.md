@@ -36,3 +36,14 @@ After installing the dependencies from `requirements.txt`, install pre-commit (o
 
 ```bash
 pre-commit install
+```
+
+### Execution
+
+To run the clustering process, execute the following command:
+
+```bash
+python main.py --input_data_path data --output_data_path results
+```
+
+This will process the documents in the `data` directory and save the clustering results to the `results` directory.
