@@ -43,7 +43,7 @@ pre-commit install
 To run the clustering process, execute the following command:
 
 ```bash
-python main.py --input_data_path data --output_data_path results
+python main.py --input_data_path data --config configs/config.yaml --output_data_path results
 ```
 
 This will process the documents in the `data` directory and save the clustering results to the `results` directory.
