@@ -47,3 +47,11 @@ python main.py --input_data_path data --output_data_path results
 ```
 
 This will process the documents in the `data` directory and save the clustering results to the `results` directory.
+
+### Testing
+
+Test modules are located in the `test` directory. To run all tests, use the following command:
+
+```bash
+PYTHONPATH=. pytest -v
+```

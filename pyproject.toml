@@ -11,5 +11,8 @@ dependencies = [
     "langchain-core",
     "langchain-openai",
     "python-dotenv",
-    "click"
+    "click",
+    "pydantic",
+    "pytest",
+    "pytest-pymock"
 ]
