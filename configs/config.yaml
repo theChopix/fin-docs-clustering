@@ -1,0 +1,6 @@
+feature_weights:
+  doc_type: 0.3
+  issuer: 0.3
+  amount: 0.1
+  date: 0.2
+  language: 0.1

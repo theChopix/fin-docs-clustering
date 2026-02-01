@@ -14,5 +14,5 @@ dependencies = [
     "click",
     "pydantic",
     "pytest",
-    "pytest-pymock"
+    "scikit-learn"
 ]
