@@ -8,11 +8,14 @@ def download_dataset(target_dir: str = 'data') -> None:
 
     os.makedirs(target_dir, exist_ok=True)
 
-    for file in os.listdir(path):
-        shutil.move(os.path.join(path, file), target_dir)
+    # structure of the path is path/<doc_type>/*.jpg, 
+    #  move all files to target_dir
+    for dir in os.listdir(path):
+        dir_path = os.path.join(path, dir)
+        if os.path.isdir(dir_path):
+            for file in os.listdir(dir_path):
+                shutil.move(os.path.join(dir_path, file), os.path.join(target_dir, f'{dir}_{file}'))
     
-    print("Dataset moved to:", target_dir)
-
 
 if __name__ == "__main__":
     download_dataset()

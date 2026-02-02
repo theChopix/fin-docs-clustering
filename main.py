@@ -18,52 +18,53 @@ def run(input_data_path: str, config: str, output_data_path: str):
         config_data = yaml.safe_load(config_file)
         feature_weights = config_data.get('feature_weights', {})
 
+    # -- data download step --
     # if the input data path does not exist or is empty, download the dataset
     if not os.path.exists(input_data_path) or not os.listdir(input_data_path):
+        click.echo("[data_download] Downloading dataset...")
         download_dataset(target_dir=input_data_path)
+        click.echo("[data_download] Dataset downloaded.")
     
-    # extraction step, process all images in the input data path into the output data path
+    # -- feature extraction step --
     pipeline_step = 'feature_extraction'
-    if not os.path.exists(output_data_path) or not os.listdir(os.path.join(output_data_path, pipeline_step)):
-    
-        for type_doc_dir in os.listdir(input_data_path):
-            click.echo(f"[feature_extraction] Processing documents of type '{type_doc_dir}'...")
-
-            os.makedirs(os.path.join(output_data_path, pipeline_step, type_doc_dir), exist_ok=True)
-            for filename in os.listdir(os.path.join(input_data_path, type_doc_dir)):
-                if filename.endswith('.jpg'):
-                    image_path = os.path.join(input_data_path, type_doc_dir, filename)
-                    features = feature_extraction.extract_features_from_image(image_path)
-                    
-                    output_file_path = os.path.join(output_data_path, pipeline_step, type_doc_dir, f"{os.path.splitext(filename)[0]}_features.json")
-                    with open(output_file_path, 'w') as outfile:
-                        json.dump(features, outfile)
-
-            click.echo(f"[feature_extraction] Processed documents of type '{type_doc_dir}'.")
-
-    # feature engineering step: process extracted features into fused feature vectors
-    pipeline_step = 'feature_engineering'
+    # if the output data path for feature extraction does not exist or is empty, run feature extraction
     if not os.path.exists(output_data_path) or not os.path.exists(os.path.join(output_data_path, pipeline_step)):
-        images_features = {}
-        for type_doc_dir in os.listdir(os.path.join(output_data_path, 'feature_extraction')):
-            for filename in os.listdir(os.path.join(output_data_path, 'feature_extraction', type_doc_dir)):
-                if filename.endswith('_features.json'):
-                    image_id = f"{type_doc_dir}/{os.path.splitext(filename)[0].replace('_features', '')}"
-                    with open(os.path.join(output_data_path, 'feature_extraction', type_doc_dir, filename), 'r') as infile:
-                        features = json.load(infile)
-                        images_features[image_id] = features
+        click.echo(f"[{pipeline_step}] Extracting features from images...")
+        os.makedirs(os.path.join(output_data_path, pipeline_step), exist_ok=True)
+        for file in os.listdir(input_data_path):
+            features = feature_extraction.extract_features_from_image(
+                image_path=os.path.join(input_data_path, file)
+            )
+            output_file_path = os.path.join(output_data_path, pipeline_step, f"{os.path.splitext(file)[0]}_features.json")
+            with open(output_file_path, 'w') as outfile:
+                json.dump(features, outfile)
+        click.echo(f"[{pipeline_step}] Extracted features from images.")
 
-        click.echo("[feature_engineering] Processing features for clustering...")
+    # -- feature engineering step --
+    pipeline_step = 'feature_engineering'
+    # if the output data path for feature engineering does not exist or is empty, run feature engineering
+    if not os.path.exists(output_data_path) or not os.path.exists(os.path.join(output_data_path, pipeline_step)):
+        click.echo(f"[{pipeline_step}] Processing features for clustering...")
+        images_features = {}
+        for filename in os.listdir(os.path.join(output_data_path, 'feature_extraction')):
+            if filename.endswith('_features.json'):
+                image_id = os.path.splitext(filename)[0].replace('_features', '')
+                with open(os.path.join(output_data_path, 'feature_extraction', filename), 'r') as infile:
+                    features = json.load(infile)
+                    images_features[image_id] = features
+
         fused_features = process_images_features(
             images_features=images_features,
             feature_weights=feature_weights
         )
 
         os.makedirs(os.path.join(output_data_path, pipeline_step), exist_ok=True)
-        with open(os.path.join(output_data_path, pipeline_step, 'fused_features.json'), 'w') as outfile:
-            json.dump(fused_features, outfile)
+        for image_id, features in fused_features.items():
+            output_file_path = os.path.join(output_data_path, pipeline_step, f"{image_id}_processed_features.json")
+            with open(output_file_path, 'w') as outfile:
+                json.dump(features, outfile)
 
-        click.echo("[feature_engineering] Processed features for clustering.")
+        click.echo(f"[{pipeline_step}] Processed features for clustering.")
 
 
 if __name__ == '__main__':
