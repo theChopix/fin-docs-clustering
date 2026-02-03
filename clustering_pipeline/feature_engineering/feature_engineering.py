@@ -30,6 +30,10 @@ def process_images_features(
         # text embeddings
         doc_type = features.get("doc_type", "")
         issuer = features.get("issuer", "")
+        if doc_type is None:
+            doc_type = ""
+        if issuer is None:
+            issuer = ""
 
         doc_emb = embedding_model.generate_embedding(doc_type)
         issuer_emb = embedding_model.generate_embedding(issuer)
