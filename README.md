@@ -26,7 +26,7 @@ Each step is described in detail below.
 
 ---
 
-## Feature Extraction
+### Feature Extraction
 
 In the first step, relevant information is extracted from financial documents (such as bank statements, checks, or salary slips) using a large language model of the vision-language (VLM) type.
 
@@ -84,8 +84,6 @@ The following transformations are applied:
 - `language`  
   → Encoded using one-hot representation  
   → This is suitable because only a limited number of languages is expected
-
----
 
 #### Feature Vector Construction
 
