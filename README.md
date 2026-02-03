@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project provides a tool for clustering financial document images (link) with configurable feature importance.
+This project provides a tool for clustering financial document images ([link](https://www.kaggle.com/datasets/mehaksingal/personal-financial-dataset-for-india)) with configurable feature importance.
 
 It can be executed as a command-line application after installing all dependencies and setting up the required `.env` variables (see below).
 
